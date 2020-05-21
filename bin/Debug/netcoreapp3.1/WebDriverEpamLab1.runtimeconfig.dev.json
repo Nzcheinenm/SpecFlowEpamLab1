@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\fizik\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\fizik\\.nuget\\packages"
+    ]
+  }
+}
