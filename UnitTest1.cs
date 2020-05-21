@@ -2,8 +2,10 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
+
 using System;
 using System.Threading;
+using WebDriverEpamLab2;
 
 namespace WebDriverEpamLab1
 {
@@ -12,12 +14,13 @@ namespace WebDriverEpamLab1
         private IWebDriver driver;
         WebDriverWait wait;
 
-        string inNameVal = "1One";
-        string unitPriceVal = "10000";
-        string inQuantityVal = "100";
-        string inUnitInStockVal = "10";
-        string inUnitsOnOrderVal = "10";
-        string inReorderLevelVal = "1";
+        LoginPage pageOne;
+        AddProdPage pageTwo;
+        CheckProductPage pageThree;
+        LogOutPage pageFour;
+
+        string userLog = "user";
+        string userPass = "user";
 
         public Boolean isElementPresent(IWebElement webelement)
         {
@@ -25,7 +28,7 @@ namespace WebDriverEpamLab1
             {
                 return webelement.Displayed;
             }
-            catch (Exception)
+            catch (NoSuchElementException e)
             {
                 return false;
             }
@@ -44,79 +47,32 @@ namespace WebDriverEpamLab1
         [Test]
         public void Test1Login()
         {
-            IWebElement login = driver.FindElement(By.XPath(".//input[@name='Name']"));
-            IWebElement password = driver.FindElement(By.XPath(".//input[@name='Password']"));
-            IWebElement okButton = driver.FindElement(By.XPath(".//input[@type='submit']"));
-            login.SendKeys("user");
-            password.SendKeys("user");
-            okButton.Click();
-            Assert.IsFalse(isElementPresent(login));
+            pageOne = new LoginPage(driver);          
+            pageOne.loginIn(userLog,userPass);
         }
 
         [Test]
         public void Test2AddProduct()
         {
-            IWebElement allProductsLink = driver.FindElement(By.XPath(".//a[text()='All Products']"));
-            allProductsLink.Click();
-            IWebElement createNewProdBut = driver.FindElement(By.XPath(".//a[text()='Create new']"));
-            createNewProdBut.Click();
-
-            IWebElement inName = driver.FindElement(By.XPath(".//input[@name='ProductName']"));
-            IWebElement inCategoryPick = driver.FindElement(By.XPath(".//select[@name='CategoryId']/option[2]"));
-            IWebElement inSupplierPick = driver.FindElement(By.XPath(".//select[@name='SupplierId']/option[@value=1]"));
-            IWebElement inUnitPrice = driver.FindElement(By.XPath(".//input[@name='UnitPrice']"));
-            IWebElement inQuantity = driver.FindElement(By.XPath(".//input[@name='QuantityPerUnit']"));
-            IWebElement inUnitInStock = driver.FindElement(By.XPath(".//input[@name='UnitsInStock']"));
-            IWebElement inUnitsOnOrder = driver.FindElement(By.XPath(".//input[@name='UnitsOnOrder']"));
-            IWebElement inReorderLevel = driver.FindElement(By.XPath(".//input[@name='ReorderLevel']"));
-            IWebElement checkDiscont = driver.FindElement(By.XPath(".//input[@name='Discontinued']"));
-            IWebElement buttonSubmit = driver.FindElement(By.XPath(".//input[@type='submit']"));
-
-            inName.SendKeys(inNameVal);
-            inCategoryPick.Click();
-            inSupplierPick.Click();
-            inUnitPrice.SendKeys(unitPriceVal);
-            inQuantity.SendKeys(inQuantityVal);
-            inUnitInStock.SendKeys(inUnitInStockVal);
-            inUnitsOnOrder.SendKeys(inUnitsOnOrderVal);
-            inReorderLevel.SendKeys(inReorderLevelVal);
-            checkDiscont.Click();
-
-            buttonSubmit.Click();
-
-            Thread.Sleep(2000);
-            Assert.IsFalse(isElementPresent(inCategoryPick));
+            pageTwo = new AddProdPage(driver);
+            pageTwo.clickCreateNew();
+            pageTwo.addProduct();
+            Assert.IsFalse(isElementPresent(pageTwo.inCategoryPick));
         }
 
-
-
         [Test]
-        [Obsolete]
         public void Test3CheckProduct()
         {
-            IWebElement allProductsLink = driver.FindElement(By.XPath(".//a[text()='All Products']"));
-            allProductsLink.Click();
-
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            wait.Timeout = TimeSpan.FromSeconds(8);
-            wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-
-
-            IWebElement inName = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(".//td/a[text()='" + inNameVal + "']")));
-            IWebElement inUnitPrice = driver.FindElement(By.XPath(".//td/a[text()='" + inNameVal + "']/following::td[4]"));
-            IWebElement inQuantity = driver.FindElement(By.XPath(".//td/a[text()='" + inNameVal + "']/following::td[3]"));
-            IWebElement inUnitInStock = driver.FindElement(By.XPath(".//td/a[text()='" + inNameVal + "']/following::td[5]"));
-            IWebElement inUnitsOnOrder = driver.FindElement(By.XPath(".//td/a[text()='" + inNameVal + "']/following::td[6]"));
-            IWebElement inReorderLevel = driver.FindElement(By.XPath(".//td/a[text()='" + inNameVal + "']/following::td[7]"));
-            IWebElement checkDiscont = driver.FindElement(By.XPath(".//td/a[text()='" + inNameVal + "']/following::td[8]"));
-
-            Assert.AreEqual(inName.Text, inNameVal);
-            Assert.AreEqual(inUnitPrice.Text, "10000,0000");
-            Assert.AreEqual(inQuantity.Text, inQuantityVal);
-            Assert.AreEqual(inUnitInStock.Text, inUnitInStockVal);
-            Assert.AreEqual(inUnitsOnOrder.Text, inUnitsOnOrderVal);
-            Assert.AreEqual(inReorderLevel.Text, inReorderLevelVal);
-            Assert.AreEqual(checkDiscont.Text, "True");
+            pageTwo = new AddProdPage(driver);
+            pageThree = new CheckProductPage(driver);
+            pageThree.clickAllProd();
+            Assert.AreEqual(pageThree.inName.Text, pageTwo.inNameVal);
+            Assert.AreEqual(pageThree.inUnitPrice.Text, "10000,0000");
+            Assert.AreEqual(pageThree.inQuantity.Text, pageTwo.inQuantityVal);
+            Assert.AreEqual(pageThree.inUnitInStock.Text, pageTwo.inUnitInStockVal);
+            Assert.AreEqual(pageThree.inUnitsOnOrder.Text, pageTwo.inUnitsOnOrderVal);
+            Assert.AreEqual(pageThree.inReorderLevel.Text, pageTwo.inReorderLevelVal);
+            Assert.AreEqual(pageThree.checkDiscont.Text, "True");
 
         }
 
@@ -124,9 +80,9 @@ namespace WebDriverEpamLab1
         [Test]
         public void Test4Logout()
         {
-            IWebElement linkLogout = driver.FindElement(By.XPath(".//a[text()='Logout']"));
-            linkLogout.Click();
-            Assert.IsFalse(isElementPresent(linkLogout));
+            pageFour = new LogOutPage(driver);
+            pageFour.logOut();
+            Assert.IsFalse(isElementPresent(pageFour.linkLogout));
         }
 
 

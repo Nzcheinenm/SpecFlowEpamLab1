@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fizik\\source\\repos\\WebDriverEpamLab1\\WebDriverEpamLab1.csproj": {}
+    "C:\\Users\\fizik\\source\\repos\\WebDriverEpamLab2\\WebDriverEpamLab1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\fizik\\source\\repos\\WebDriverEpamLab1\\WebDriverEpamLab1.csproj": {
+    "C:\\Users\\fizik\\source\\repos\\WebDriverEpamLab2\\WebDriverEpamLab1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fizik\\source\\repos\\WebDriverEpamLab1\\WebDriverEpamLab1.csproj",
+        "projectUniqueName": "C:\\Users\\fizik\\source\\repos\\WebDriverEpamLab2\\WebDriverEpamLab1.csproj",
         "projectName": "WebDriverEpamLab1",
-        "projectPath": "C:\\Users\\fizik\\source\\repos\\WebDriverEpamLab1\\WebDriverEpamLab1.csproj",
+        "projectPath": "C:\\Users\\fizik\\source\\repos\\WebDriverEpamLab2\\WebDriverEpamLab1.csproj",
         "packagesPath": "C:\\Users\\fizik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fizik\\source\\repos\\WebDriverEpamLab1\\obj\\",
+        "outputPath": "C:\\Users\\fizik\\source\\repos\\WebDriverEpamLab2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\fizik\\AppData\\Roaming\\NuGet\\NuGet.Config",
