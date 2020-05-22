@@ -10,8 +10,8 @@ namespace WebDriverEpamLab2
 {
     class LoginPage
     {
-        IWebDriver driver;
-        ActionElements action;
+        private IWebDriver driver;
+        private ActionElements action;
 
         public LoginPage(IWebDriver driver)
         {
@@ -20,16 +20,16 @@ namespace WebDriverEpamLab2
         }
 
         [FindsBy(How = How.XPath, Using = ".//input[@name='Name']")]
-        public IWebElement login { get; set; }
+        private IWebElement login { get; set; }
 
         [FindsBy(How = How.XPath, Using = ".//input[@name='Password']")]
-        public IWebElement password { get; set; }
+        private IWebElement password { get; set; }
 
         [FindsBy(How = How.XPath, Using = ".//input[@type='submit']")]
-        public IWebElement okButton { get; set; }
+        private IWebElement okButton { get; set; }
 
         [FindsBy(How = How.XPath, Using = ".//a[text()='All Products']")]
-        public IWebElement allProductsLink { get; set; }
+        private IWebElement allProductsLink { get; set; }
 
         public void loginIn(string userLog, string userPass)
         {

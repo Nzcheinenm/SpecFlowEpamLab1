@@ -11,19 +11,24 @@ namespace WebDriverEpamLab2
 {
     class LogOutPage
     {
-        IWebDriver driver;
+        private IWebDriver driver;
         public LogOutPage(IWebDriver driver)
         {
             PageFactory.InitElements(driver, this);
         }
 
         [FindsBy(How = How.XPath, Using = ".//a[text()='Logout']")]
-        public IWebElement linkLogout { get; set; }
+        private IWebElement linkLogout { get; set; }
         
         public void logOut()
         {
             linkLogout.Click();
-            Thread.Sleep(1000);
+        }
+
+        public Boolean isPresent()
+        {
+            IsPresentElement isPresent = new IsPresentElement();
+            return isPresent.isElementPresent(linkLogout);
         }
     }
 }

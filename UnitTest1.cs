@@ -12,28 +12,22 @@ namespace WebDriverEpamLab1
     public class Tests
     {
         private IWebDriver driver;
-        WebDriverWait wait;
 
-        LoginPage pageOne;
-        AddProdPage pageTwo;
-        CheckProductPage pageThree;
-        LogOutPage pageFour;
+        private LoginPage pageOne;
+        private AddProdPage pageTwo;
+        private CheckProductPage pageThree;
+        private LogOutPage pageFour;
 
-        string userLog = "user";
-        string userPass = "user";
+        private const string userLog = "user";
+        private const string userPass = "user";
 
-        public Boolean isElementPresent(IWebElement webelement)
-        {
-            try
-            {
-                return webelement.Displayed;
-            }
-            catch (NoSuchElementException e)
-            {
-                return false;
-            }
+        private const string inNameVal = "1One";
+        private const string inQuantityVal = "100";
+        private const string inUnitInStockVal = "10";
+        private const string inUnitsOnOrderVal = "10";
+        private const string inReorderLevelVal = "1";
 
-        }
+        
 
 
         [OneTimeSetUp]
@@ -41,7 +35,7 @@ namespace WebDriverEpamLab1
         {
             driver = new ChromeDriver();
             driver.Navigate().GoToUrl("http://localhost:5000/");
-            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            driver.Manage().Window.Maximize();
         }
 
         [Test]
@@ -57,22 +51,22 @@ namespace WebDriverEpamLab1
             pageTwo = new AddProdPage(driver);
             pageTwo.clickCreateNew();
             pageTwo.addProduct();
-            Assert.IsFalse(isElementPresent(pageTwo.inCategoryPick));
+            Assert.IsFalse(pageTwo.isPresent());
         }
 
         [Test]
         public void Test3CheckProduct()
         {
-            pageTwo = new AddProdPage(driver);
             pageThree = new CheckProductPage(driver);
             pageThree.clickAllProd();
-            Assert.AreEqual(pageThree.inName.Text, pageTwo.inNameVal);
-            Assert.AreEqual(pageThree.inUnitPrice.Text, "10000,0000");
-            Assert.AreEqual(pageThree.inQuantity.Text, pageTwo.inQuantityVal);
-            Assert.AreEqual(pageThree.inUnitInStock.Text, pageTwo.inUnitInStockVal);
-            Assert.AreEqual(pageThree.inUnitsOnOrder.Text, pageTwo.inUnitsOnOrderVal);
-            Assert.AreEqual(pageThree.inReorderLevel.Text, pageTwo.inReorderLevelVal);
-            Assert.AreEqual(pageThree.checkDiscont.Text, "True");
+            pageThree.getTextElement();
+            Assert.AreEqual(pageThree.inNameText,inNameVal);
+            Assert.AreEqual(pageThree.inUnitPriceText, "10000,0000");
+            Assert.AreEqual(pageThree.inQuantityText,inQuantityVal);
+            Assert.AreEqual(pageThree.inUnitInStockText,inUnitInStockVal);
+            Assert.AreEqual(pageThree.inUnitsOnOrderText,inUnitsOnOrderVal);
+            Assert.AreEqual(pageThree.inReorderLevelText,inReorderLevelVal);
+            Assert.AreEqual(pageThree.checkDiscontText, "True");
 
         }
 
@@ -82,7 +76,7 @@ namespace WebDriverEpamLab1
         {
             pageFour = new LogOutPage(driver);
             pageFour.logOut();
-            Assert.IsFalse(isElementPresent(pageFour.linkLogout));
+            Assert.IsFalse(pageFour.isPresent());
         }
 
 
