@@ -5,6 +5,7 @@ using System.Text;
 using System.Reflection.Metadata;
 using SeleniumExtras.PageObjects;
 using OpenQA.Selenium.Interactions;
+using WebDriverEpamLab2.business_object;
 
 namespace WebDriverEpamLab2
 {
@@ -12,6 +13,7 @@ namespace WebDriverEpamLab2
     {
         private IWebDriver driver;
         private ActionElements action;
+        private Login loginBo;
 
         public LoginPage(IWebDriver driver)
         {

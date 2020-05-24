@@ -6,6 +6,7 @@ using OpenQA.Selenium.Support.UI;
 using System;
 using System.Threading;
 using WebDriverEpamLab2;
+using WebDriverEpamLab2.business_object;
 
 namespace WebDriverEpamLab1
 {
@@ -18,18 +19,9 @@ namespace WebDriverEpamLab1
         private CheckProductPage pageThree;
         private LogOutPage pageFour;
 
-        private const string userLog = "user";
-        private const string userPass = "user";
+        private Login login = new Login("user", "user");
 
-        private const string inNameVal = "1One";
-        private const string inQuantityVal = "100";
-        private const string inUnitInStockVal = "10";
-        private const string inUnitsOnOrderVal = "10";
-        private const string inReorderLevelVal = "1";
-
-        
-
-
+        private Product product = new Product("1One", "10000", "100", "10", "10", "1");
         [OneTimeSetUp]
         public void BeforeTestSuit()
         {
@@ -42,7 +34,7 @@ namespace WebDriverEpamLab1
         public void Test1Login()
         {
             pageOne = new LoginPage(driver);          
-            pageOne.loginIn(userLog,userPass);
+            pageOne.loginIn(login.userLog, login.userPass);
         }
 
         [Test]
@@ -60,16 +52,15 @@ namespace WebDriverEpamLab1
             pageThree = new CheckProductPage(driver);
             pageThree.clickAllProd();
             pageThree.getTextElement();
-            Assert.AreEqual(pageThree.inNameText,inNameVal);
+            Assert.AreEqual(pageThree.inNameText, product.inNameVal);
             Assert.AreEqual(pageThree.inUnitPriceText, "10000,0000");
-            Assert.AreEqual(pageThree.inQuantityText,inQuantityVal);
-            Assert.AreEqual(pageThree.inUnitInStockText,inUnitInStockVal);
-            Assert.AreEqual(pageThree.inUnitsOnOrderText,inUnitsOnOrderVal);
-            Assert.AreEqual(pageThree.inReorderLevelText,inReorderLevelVal);
+            Assert.AreEqual(pageThree.inQuantityText, product.inQuantityVal);
+            Assert.AreEqual(pageThree.inUnitInStockText, product.inUnitInStockVal);
+            Assert.AreEqual(pageThree.inUnitsOnOrderText, product.inUnitsOnOrderVal);
+            Assert.AreEqual(pageThree.inReorderLevelText, product.inReorderLevelVal);
             Assert.AreEqual(pageThree.checkDiscontText, "True");
 
         }
-
 
         [Test]
         public void Test4Logout()
@@ -79,13 +70,11 @@ namespace WebDriverEpamLab1
             Assert.IsFalse(pageFour.isPresent());
         }
 
-
         [OneTimeTearDown]
         public void AfterTestSuit()
         {
             driver.Close();
             driver.Quit();
         }
-
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
+using WebDriverEpamLab2.business_object;
 
 namespace WebDriverEpamLab2
 {
@@ -64,12 +65,8 @@ namespace WebDriverEpamLab2
         private IWebElement buttonSubmit { get; set; }
 
 
-        private string inNameVal = "1One";
-        private string unitPriceVal = "10000";
-        private string inQuantityVal = "100";
-        private string inUnitInStockVal = "10";
-        private string inUnitsOnOrderVal = "10";
-        private string inReorderLevelVal = "1";
+        private Product product = new Product("1One", "10000", "100", "10", "10", "1");
+        
 
         public void clickCreateNew()
         {
@@ -79,14 +76,14 @@ namespace WebDriverEpamLab2
         {
             
             wait.Timeout = TimeSpan.FromSeconds(20);
-            inName.SendKeys(inNameVal);
+            inName.SendKeys(product.inNameVal);
             inCategoryPick.Click();
             inSupplierPick.Click();
-            inUnitPrice.SendKeys(unitPriceVal);
-            inQuantity.SendKeys(inQuantityVal);
-            inUnitInStock.SendKeys(inUnitInStockVal);
-            inUnitsOnOrder.SendKeys(inUnitsOnOrderVal);
-            inReorderLevel.SendKeys(inReorderLevelVal);
+            inUnitPrice.SendKeys(product.unitPriceVal);
+            inQuantity.SendKeys(product.inQuantityVal);
+            inUnitInStock.SendKeys(product.inUnitInStockVal);
+            inUnitsOnOrder.SendKeys(product.inUnitsOnOrderVal);
+            inReorderLevel.SendKeys(product.inReorderLevelVal);
             checkDiscont.Click();
             buttonSubmit.Click();
 
