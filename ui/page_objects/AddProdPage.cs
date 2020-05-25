@@ -63,19 +63,14 @@ namespace WebDriverEpamLab2
 
         [FindsBy(How = How.XPath, Using = ".//input[@type='submit']")]
         private IWebElement buttonSubmit { get; set; }
-
-
-        private Product product = new Product("1One", "10000", "100", "10", "10", "1");
         
 
         public void clickCreateNew()
         {
             createNewProdBut.Click();
         }
-        public void addProduct()
+        public void addProduct(Product product)
         {
-            
-            wait.Timeout = TimeSpan.FromSeconds(20);
             inName.SendKeys(product.inNameVal);
             inCategoryPick.Click();
             inSupplierPick.Click();

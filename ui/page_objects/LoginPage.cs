@@ -33,10 +33,10 @@ namespace WebDriverEpamLab2
         [FindsBy(How = How.XPath, Using = ".//a[text()='All Products']")]
         private IWebElement allProductsLink { get; set; }
 
-        public void loginIn(string userLog, string userPass)
+        public void loginIn(Login loginBo)
         {
-            action.sendElement(login,userLog);
-            action.sendElement(password,userPass);
+            action.sendElement(login,loginBo.userLog);
+            action.sendElement(password,loginBo.userPass);
             action.clickElement(okButton);
             action.clickElement(allProductsLink);
         }

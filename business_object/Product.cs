@@ -7,7 +7,7 @@ namespace WebDriverEpamLab2.business_object
 {
     class Product
     {
-        public string inNameVal;
+        public string inNameVal { get; set; }
         public string unitPriceVal ;
         public string inQuantityVal;
         public string inUnitInStockVal;
@@ -22,6 +22,11 @@ namespace WebDriverEpamLab2.business_object
             this.inUnitInStockVal = inUnitInStockVal;
             this.inUnitsOnOrderVal = inUnitsOnOrderVal;
             this.inReorderLevelVal = inReorderLevelVal;
+
+        }
+
+        public Product()
+        {
 
         }
     }

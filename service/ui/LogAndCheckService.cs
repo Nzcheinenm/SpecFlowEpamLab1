@@ -13,13 +13,14 @@ namespace WebDriverEpamLab2.service.ui
         private LoginPage pageOne;
         private CheckProductPage pageTwo;
 
-        public Boolean LoginAndCheckProduct (Login login, Product product, IWebDriver driver)
+        public Product LoginAndCheckProduct (Login login, Product product, IWebDriver driver)
         {
             LoginPage loginPage = new LoginPage(driver);
-            loginPage.loginIn(login.userLog, login.userPass);
+            loginPage.loginIn(login);
             CheckProductPage checkProduct = new CheckProductPage(driver);
             checkProduct.clickAllProd();
-            return pageTwo.inNameText == product.inNameVal;
+            Product prod = checkProduct.getTextElement(product);
+            return prod;
         }
     }
 }

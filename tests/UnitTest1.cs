@@ -7,6 +7,7 @@ using System;
 using System.Threading;
 using WebDriverEpamLab2;
 using WebDriverEpamLab2.business_object;
+using WebDriverEpamLab2.service.ui;
 
 namespace WebDriverEpamLab1
 {
@@ -14,14 +15,15 @@ namespace WebDriverEpamLab1
     {
         private IWebDriver driver;
 
-        private LoginPage pageOne;
-        private AddProdPage pageTwo;
-        private CheckProductPage pageThree;
-        private LogOutPage pageFour;
+        private LoginPage pageLogin;
+        private AddProdPage pageAddProduct;
+        private CheckProductPage pageCheckProduct;
+        private LogOutPage pageLogOut;
 
         private Login login = new Login("user", "user");
 
         private Product product = new Product("1One", "10000", "100", "10", "10", "1");
+
         [OneTimeSetUp]
         public void BeforeTestSuit()
         {
@@ -33,41 +35,47 @@ namespace WebDriverEpamLab1
         [Test]
         public void Test1Login()
         {
-            pageOne = new LoginPage(driver);          
-            pageOne.loginIn(login.userLog, login.userPass);
+            pageLogin = new LoginPage(driver);          
+            pageLogin.loginIn(login);
         }
 
         [Test]
         public void Test2AddProduct()
         {
-            pageTwo = new AddProdPage(driver);
-            pageTwo.clickCreateNew();
-            pageTwo.addProduct();
-            Assert.IsFalse(pageTwo.isPresent());
+            pageAddProduct = new AddProdPage(driver);
+            pageAddProduct.clickCreateNew();
+            pageAddProduct.addProduct(product);
+            Assert.IsFalse(pageAddProduct.isPresent());
         }
 
         [Test]
         public void Test3CheckProduct()
         {
-            pageThree = new CheckProductPage(driver);
-            pageThree.clickAllProd();
-            pageThree.getTextElement();
-            Assert.AreEqual(pageThree.inNameText, product.inNameVal);
-            Assert.AreEqual(pageThree.inUnitPriceText, "10000,0000");
-            Assert.AreEqual(pageThree.inQuantityText, product.inQuantityVal);
-            Assert.AreEqual(pageThree.inUnitInStockText, product.inUnitInStockVal);
-            Assert.AreEqual(pageThree.inUnitsOnOrderText, product.inUnitsOnOrderVal);
-            Assert.AreEqual(pageThree.inReorderLevelText, product.inReorderLevelVal);
-            Assert.AreEqual(pageThree.checkDiscontText, "True");
-
+            pageCheckProduct = new CheckProductPage(driver);
+            pageCheckProduct.clickAllProd();
+            Product prod = pageCheckProduct.getTextElement(product);
+            Assert.AreEqual(prod.inNameVal, product.inNameVal);
+            Assert.AreEqual(prod.inQuantityVal, product.inQuantityVal);
+            Assert.AreEqual(prod.inUnitInStockVal, product.inUnitInStockVal);
+            Assert.AreEqual(prod.inUnitsOnOrderVal, product.inUnitsOnOrderVal);
+            Assert.AreEqual(prod.inReorderLevelVal, product.inReorderLevelVal);
         }
 
         [Test]
         public void Test4Logout()
         {
-            pageFour = new LogOutPage(driver);
-            pageFour.logOut();
-            Assert.IsFalse(pageFour.isPresent());
+            pageLogOut = new LogOutPage(driver);
+            pageLogOut.logOut();
+            Assert.IsFalse(pageLogOut.isPresent());
+        }
+
+
+        [Test]
+        public void Test5Service()
+        {
+            LogAndCheckService service = new LogAndCheckService();
+            Product productTest = service.LoginAndCheckProduct(login,product,driver);
+            Assert.IsTrue(product.inNameVal == productTest.inNameVal);
         }
 
         [OneTimeTearDown]

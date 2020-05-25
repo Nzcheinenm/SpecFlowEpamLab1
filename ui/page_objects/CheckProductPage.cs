@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using System;
+using WebDriverEpamLab2.business_object;
 
 namespace WebDriverEpamLab2
 {
@@ -9,73 +10,34 @@ namespace WebDriverEpamLab2
     {
 
         private IWebDriver driver;
+        private IWebElement element;
         private WebDriverWait wait;
-
-        public string inNameText;
-        public string inUnitPriceText;
-        public string inQuantityText;
-        public string inUnitInStockText;
-        public string inUnitsOnOrderText;
-        public string inReorderLevelText;
-        public string checkDiscontText;
-
         
         public CheckProductPage(IWebDriver driver)
         {
-            PageFactory.InitElements(driver, this);
+            this.driver = driver;
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
         }
 
-        private const string inNameVal = "1One";
-
-
-        [FindsBy(How = How.XPath, Using = ".//a[text()='All Products']")]
-        private IWebElement allProductsLink { get; set; }
-
-
-        [FindsBy(How = How.XPath, Using = ".//td/a[text()='" + inNameVal + "']")]
-        private IWebElement inName { get; set; }
-
-
-        [FindsBy(How = How.XPath, Using = ".//td/a[text()='" + inNameVal + "']/following::td[4]")]
-        private IWebElement inUnitPrice { get; set; }
-
-
-        [FindsBy(How = How.XPath, Using = ".//td/a[text()='" + inNameVal + "']/following::td[3]")]
-        private IWebElement inQuantity { get; set; }
-
-
-        [FindsBy(How = How.XPath, Using = ".//td/a[text()='" + inNameVal + "']/following::td[5]")]
-        private IWebElement inUnitInStock { get; set; }
-
-
-        [FindsBy(How = How.XPath, Using = ".//td/a[text()='" + inNameVal + "']/following::td[6]")]
-        private IWebElement inUnitsOnOrder { get; set; }
-
-
-        [FindsBy(How = How.XPath, Using = ".//td/a[text()='" + inNameVal + "']/following::td[7]")]
-        private IWebElement inReorderLevel { get; set; }
-
-
-        [FindsBy(How = How.XPath, Using = ".//td/a[text()='" + inNameVal + "']/following::td[8]")]
-        private IWebElement checkDiscont { get; set; }
-
+        private static Product product;
+        
 
         public void clickAllProd()
         {
-            allProductsLink.Click();
+            driver.FindElement(By.XPath(".//a[text()='All Products']")).Click();
+
         }
 
-        public void getTextElement()
+        public Product getTextElement(Product getElementProd)
         {
-            inNameText = inName.Text;
-            inUnitPriceText = inUnitPrice.Text;
-            inQuantityText = inQuantity.Text;
-            inUnitInStockText = inUnitInStock.Text;
-            inUnitsOnOrderText = inUnitsOnOrder.Text;
-            inReorderLevelText = inReorderLevel.Text;
-            wait.Timeout = TimeSpan.FromSeconds(50);
-            checkDiscontText = checkDiscont.Text;
+            Product prod = new Product();
+            prod.inNameVal = driver.FindElement(By.XPath(".//td/a[text()='" + getElementProd.inNameVal + "']")).Text;
+            prod.unitPriceVal = driver.FindElement(By.XPath(".//td/a[text()='" + getElementProd.inNameVal + "']/following::td[4]")).Text;
+            prod.inQuantityVal = driver.FindElement(By.XPath(".//td/a[text()='" + getElementProd.inNameVal + "']/following::td[3]")).Text;
+            prod.inUnitInStockVal = driver.FindElement(By.XPath(".//td/a[text()='" + getElementProd.inNameVal + "']/following::td[5]")).Text;
+            prod.inUnitsOnOrderVal = driver.FindElement(By.XPath(".//td/a[text()='" + getElementProd.inNameVal + "']/following::td[6]")).Text;
+            prod.inReorderLevelVal = driver.FindElement(By.XPath(".//td/a[text()='" + getElementProd.inNameVal + "']/following::td[7]")).Text;
+            return prod;
         }
 
     }
