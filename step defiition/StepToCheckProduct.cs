@@ -22,7 +22,7 @@ namespace WebDriverEpamLab2.step_defiition
             driver.Manage().Window.Maximize();
         }
 
-        [When(@"Login to application ""(.*)"",""(.*)""")]
+        [When(@"the system with credentials login - ""(.*)"" and password - ""(.*)""")]
         public void WhenLoginToApplication(string log, string pass)
         {
             new LoginPage(driver).loginIn(new business_object.Login(log, pass));
@@ -34,7 +34,7 @@ namespace WebDriverEpamLab2.step_defiition
             new AddProdPage(driver).clickCreateNew();
         }
 
-        [When(@"Add to product info ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)""")]
+        [When(@"Add and enter the product data in the fields: name - ""(.*)"",unitPrice - ""(.*)"", inQuantity - ""(.*)"", inUnitInStock - ""(.*)"",inUnitsOnOrder - ""(.*)"",inReorderLevel - ""(.*)""")]
         public void WhenAddProduct (string name,string unPrice,string inQual, string inUnitSt,string inUnitOrder,string inReord)
         {
             new AddProdPage(driver).addProduct(new Product(name,unPrice,inQual,inUnitSt,inUnitOrder,inReord));

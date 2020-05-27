@@ -104,13 +104,15 @@ namespace WebDriverEpamLab2.Feature
  testRunner.Given("Go to url \"http://localhost:5000/\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 11
- testRunner.When("Login to application \"user\",\"user\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the system with credentials login - \"user\" and password - \"user\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 12
  testRunner.And("click to button Create product", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 13
- testRunner.And("Add to product info \"1One\", \"10000\", \"100\", \"10\", \"10\", \"1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("Add and enter the product data in the fields: name - \"1One\",unitPrice - \"10000\", " +
+                        "inQuantity - \"100\", inUnitInStock - \"10\",inUnitsOnOrder - \"10\",inReorderLevel - " +
+                        "\"1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 14
  testRunner.Then("check that the window Create Product has closed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
