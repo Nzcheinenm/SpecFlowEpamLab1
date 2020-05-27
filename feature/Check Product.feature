@@ -1,13 +1,14 @@
-﻿Feature: Check product to application
+﻿Feature: Add product to application
  As a user
  I want to open the application
- So add products
+ So Create New products
+ And to check closed window
 
 
- Scenario: Check product
+ Scenario: Add product
 
  Given Go to url "http://localhost:5000/"
  When Login to application "user","user"
- And click to checkProduct allProduct
- And check to product info "1One", "10000", "100", "10", "10", "1"
- Then name product should be name,inQuality and inUnitStock- "1One", "100", "10"
+ And click to button Create product
+ And Add to product info "1One", "10000", "100", "10", "10", "1"
+ Then check that the window Create Product has closed

@@ -13,8 +13,6 @@ namespace WebDriverEpamLab2.step_defiition
     class StepToCheckProduct
     {
         IWebDriver driver;
-        Product prod;
-
 
         [Given(@"Go to url ""(.*)""")] 
         public void GivenGoToUrl(string url)
@@ -30,25 +28,22 @@ namespace WebDriverEpamLab2.step_defiition
             new LoginPage(driver).loginIn(new business_object.Login(log, pass));
         }
 
-        [When(@"click to checkProduct allProduct")]
-        public void WhenToClickAllProduct ()
+        [When(@"click to button Create product")]
+        public void WhenToClickAddProduct ()
         {
-            new CheckProductPage(driver).clickAllProd();
+            new AddProdPage(driver).clickCreateNew();
         }
 
-        [When(@"check to product info ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)""")]
-        public void WhenCheckProduct (string name,string unPrice,string inQual, string inUnitSt,string inUnitOrder,string inReord)
+        [When(@"Add to product info ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)"", ""(.*)""")]
+        public void WhenAddProduct (string name,string unPrice,string inQual, string inUnitSt,string inUnitOrder,string inReord)
         {
-            CheckProductPage check = new CheckProductPage(driver);
-            prod = check.getTextElement(new business_object.Product(name, unPrice, inQual, inUnitSt, inUnitOrder, inReord));
+            new AddProdPage(driver).addProduct(new Product(name,unPrice,inQual,inUnitSt,inUnitOrder,inReord));
         }
 
-        [Then(@"name product should be name,inQuality and inUnitStock- ""(.*)"", ""(.*)"", ""(.*)""")]
-        public void ThenCheckProductName (string name, string inQual, string inUnit)
+        [Then(@"check that the window Create Product has closed")]
+        public void ThenCheckClosedWindow ()
         {
-            Assert.AreEqual(prod.inNameVal, name);
-            Assert.AreEqual(prod.inUnitInStockVal, inUnit);
-            Assert.AreEqual(prod.inQuantityVal, inQual);
+            Assert.IsFalse(new AddProdPage(driver).isPresent());
             driver.Close();
         }
     }
