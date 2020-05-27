@@ -12,7 +12,7 @@ using WebDriverEpamLab2.service.ui;
 namespace WebDriverEpamLab1
 {
     public class Tests
-    {
+    { /*
         private IWebDriver driver;
 
         private LoginPage pageLogin;
@@ -83,6 +83,6 @@ namespace WebDriverEpamLab1
         {
             driver.Close();
             driver.Quit();
-        }
-    }
+        } */
+    } 
 }
